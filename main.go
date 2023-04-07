@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/go-chat-room/pkg/websocket"
-	"github.com/gorilla/websocket"
+	"github.com/go-chat-room/package/websocket"
 )
 
 func serveWS(pool *websocket.Pool, w http.ResponseWriter, r *http.Request) {
@@ -30,7 +29,7 @@ func setupRoutes() {
 	pool := websocket.NewPool()
 	go pool.Start() //Starting a go routine
 
-	http.Handle("/ws", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		serveWS(pool, w, r)
 	})
 }
